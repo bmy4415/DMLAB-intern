@@ -145,3 +145,6 @@ dmypy.json
 # data files
 *.csv
 pytorch_turorial/DEEP_LEARNING_WITH_PYTORCH:_A_60_MINUTE_BLITZ/data
+image_captioning_practice/Flicker8k_Dataset
+image_captioning_practice/Flickr8k_Dataset.zip
+image_captioning_practice/Flickr8k_text.zip
