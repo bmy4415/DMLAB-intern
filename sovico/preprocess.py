@@ -70,13 +70,9 @@ def prepare_data(data_path, num_nodes, num_frame, after):
         upto = 500
         result = []
         for lst in arr:
-            # random.seed(0)
+            random.seed(0)
             random.shuffle(lst)
             result.extend(lst[:upto])
-
-        # labels in original set
-        for i in range(4):
-            print('label %d: %d' % (i, len(arr[i])))
                         
         # until now, result consists of (t, n)
         # group by t
@@ -86,6 +82,9 @@ def prepare_data(data_path, num_nodes, num_frame, after):
                 dic[t].append(n)
             else:
                 dic[t] = [n]
+                
+        for tup in result:
+            print(tup)
 
         # convert to [t, n1, ... nn]
         mask = []
@@ -96,7 +95,9 @@ def prepare_data(data_path, num_nodes, num_frame, after):
                 
             mask.append(row)
             
-        return np.sort(np.array(mask), axis=0)
+        mask = np.array(mask)
+        mask = mask[mask[:, 0].argsort()] # sort by time asc
+        return mask
     
     
     # load data
@@ -104,7 +105,6 @@ def prepare_data(data_path, num_nodes, num_frame, after):
     
     # split into x, y and apply window
     # this should be fixed to 'numpytic way' instead of for loop
-    # cf) python append(list append) is faster than np.append => https://stackoverflow.com/questions/29839350/numpy-append-vs-python-append
     x, y = [], []
     for t in range(data.shape[0]-num_frame-after):
         curr_x = data[t:t+num_frame, :, 1:] # shape: (NUM_FRAME, NUM_NODES, 8)
@@ -127,75 +127,3 @@ def prepare_data(data_path, num_nodes, num_frame, after):
     
     return (x_train, y_train, mask_train), (x_valid, y_valid, mask_valid), (x_test, y_test, mask_test)
 
-def get_window(data_path, frame_size, after, num_nodes=8):
-    '''
-    given frame_size(window_size) and after, return x(feature) and y(label) from raw sensor data
-    of shape: (time, num_nodes, 9)
-    
-    :param data_path the path of data, e.g. sensorData_<node_num>.txt
-    :param frame_size number of frame to use at prediction, that is window size
-    :param after time difference between last time of input feature and target time
-    :param num_nodes number of nodes in data, in case of 301 building, 8 nodes exist
-    
-    :return
-    tuple of (x, y)
-    x: numpy array of shape (num_examples, num_nodes, frame_size, 8)
-    num_examples = time(total number of frames) - frame_size - after + 1
-    8 represents our sensor data has 8bit information
-    y: numpy array of shape (num_examples, num_nodes) which represents label of each position and time
-    label 0 => 0 person, label 1 => 1~3 people, label 2 => 4~6 people, label 3 => more than 7 people
-    '''
-    
-    print('start "get_window(%s, %d, %d, %d)"...' % (data_path, frame_size, after, num_nodes))
-    data = load_data(data_path) # shape: (time, num_nodes, 9)
-    num_examples = data.shape[0] - frame_size - after + 1
-    x = [] # use python list for append performace
-    y = [] # use python list for append performace
-    
-    for t in tqdm(range(num_examples), desc='Total frame'):
-        curr_x = data[t:t+frame_size, :, 1:] # shape: (frame_size, num_nodes, 8)
-        curr_y = data[t+frame_size+after-1, :, 0] # shape: (num_nodes)
-        curr_x = np.swapaxes(curr_x, 0, 1) # shape: (num_nodes, frame_size, 8)
-        
-        x.append(curr_x.tolist())
-        y.append(curr_y.tolist())
-    
-    print('end "get_window(%s, %d, %d, %d)"!' % (data_path, frame_size, after, num_nodes))
-    return np.array(x), np.array(y)
-
-def pick_index(y):
-    '''
-    get_window 함수를 통해 data_path에 존재하는 sensor data을 read한 후
-    num_examples = total_frames - frame_size - after + 1인
-    x: (num_examples, num_nodes, frame_size, 8)
-    y: (num_examples, num_nodes)
-    를 얻을 수 있다
-    
-    y에 존재하는 label은 매우 0, 1, 2, 3으로 이루어진 매우 불균형한 data이다.
-    따라서 test set을 통해 performace를 측정할 때 주어진 test set의 모든 label을 사용하지 않고
-    각 label별로 균등하게 뽑은 label에 대해서만 test performance를 측정한다.
-    
-    :param y numpy array of shape: (num_examples, num_nodes, num_classes), onehot encoded
-    
-    :return
-    2d numpy array of [example_index, node_index]s
-    '''
-
-    arr = [[], [], [], []]
-    y = np.argmax(y, axis=2) # shape: (num_examples, num_nodes)
-    y = y.tolist()
-    for t in range(len(y)):
-        for n in range(len(y[0])):
-            label = y[t][n]
-            arr[label].append((t, n))
-            
-#     min_count = min([len(x) for x in arr])
-    min_count = 500
-    result = []
-    for lst in arr:
-        random.seed(0)
-        random.shuffle(lst)
-        result.extend(lst[:min_count])
-    
-    
-    return np.array(result)
