@@ -1,35 +1,27 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[20]:
-
-
 import numpy as np
 import os
-from tqdm import tqdm
 import random
-
-
-# In[ ]:
+from sklearn.model_selection import train_test_split
 
 
 def load_data(data_path, num_nodes=8):
     '''
-    read sensor data from given data path
+    Load text files in <data_path> and return numpy array of stacked sensor data.
+    Output np array has shape of (TIME, NUM_NODES, 9).
+    Last element of shape, that is 9, represents label of each frame and 8bit sensor data.
+    Each label is digitized, which means, 0(0 person), 1(1-3 people), 2(4-6 people), 3(more than 7 people).
     
-    :param data_path the path of data, e.g. sensorData_<node_num>.txt
-    :param num_nodes number of nodes in data, in case of 301 building, 8 nodes exist
+    For example, there are 8 nodes in 301 building and each node has 160000-320000 rows of 8bit sensor data.
+    Then, output np array will have shape of (160000, 8, 9)
     
-    :return
-    numpy array of shape (time, num_nodes, 9)
-    time: total number of frame
-    num_nides: total number of nodes
-    9: label at index [0] and 8bit sensor data at slice [1:9]
+    
+    :param: data_path string which represents path of sensor data
+    :param: num_nodes integer which represents number of nodes
+    :return data numpy array of shape (TIME, NUM_NODES, 9)
     '''
     
-    print('start "load_data(%s, %d)"...' % (data_path, num_nodes))
     data = []
-    for i in tqdm(range(num_nodes), desc='Nodes'):
+    for i in range(num_nodes):
         curr = np.loadtxt(os.path.join(data_path, 'sensorData_{}.txt'.format(i+1)), delimiter=',', dtype=np.float32)
         data.append(curr)
 
@@ -39,19 +31,106 @@ def load_data(data_path, num_nodes=8):
     # apply label
     bins=[1, 4, 7]
     data[:, :, 0] = np.digitize(data[:, :, 0], bins)
-
-    print('end "load_data(%s, %d)"!' % (data_path, num_nodes))
+    
     return data
 
+def prepare_data(data_path, num_nodes, num_frame, after):
+    '''
+    prediction task에서는 sensor data window를 사용하므로 window를 고려한 train, valid, test을 준비해야함
+    GCN을 이용할 것이므로 각각의 dataset은 서로 시간이 겹치면 안됨
+    또한 label이 매우 불균형 하므로 label을 기준으로 under-sampling을 진행한 후 train을 진행함
+    
+    - load_data 함수를 이용하여 data를 load함
+    - data: (num_frame, num_nodes, 9)를 x: (num_frame, num_nodes, 8), y: (num_frame, num_nodes)로 분리함
+    - window를 적용하여 x: (num_frame', num_nodes, 8), y: (num_frame', num_nodes)로 변경
+    - time을 기준으로 train, valid, test set으로 분리
+    - 각각의 dataset에서 label 숫자를 기준으로 (time, node_number)를 골라냄
+    - 골라낸 (time, node_number)를 time 기준으로 group화하여 time 마다 길이가 num_nodes인 mask vector를 만듬
+    
+    :param: data_path string which denotes raw sensor data path
+    :param: num_nodes integer which denotes number of nodes
+    :param: num_frame integer which denotes window size and this should be multiple of 8
+    :param: after integer which denotes frame difference between window and label and this also should be multiple of 8
+    :return ((train_x, train_y, tarin_mask), (valid_x, valid_y, valid_mask), (test_x, test_y, test_mask))
+    '''
+    
+    def get_mask(y):
+        '''
+        y: numpy array of shape (NUM_EXAMPLES, NUM_NODES) denotes label
+        return: numpy array whose row in [t, n1, ... nn]
+        '''
+        arr = [[], [], [], []]
+        y = y.tolist()
+        for t in range(len(y)):
+            for n in range(len(y[0])):
+                label = int(y[t][n])
+                arr[label].append((t, n))
 
-# In[1]:
+        # upto = min([len(x) for x in arr])
+        upto = 500
+        result = []
+        for lst in arr:
+            # random.seed(0)
+            random.shuffle(lst)
+            result.extend(lst[:upto])
 
+        # labels in original set
+        for i in range(4):
+            print('label %d: %d' % (i, len(arr[i])))
+                        
+        # until now, result consists of (t, n)
+        # group by t
+        dic = dict()
+        for (t, n) in result:
+            if t in dic:
+                dic[t].append(n)
+            else:
+                dic[t] = [n]
+
+        # convert to [t, n1, ... nn]
+        mask = []
+        for t in dic:
+            row = [t] + [0] * num_nodes
+            for n in dic[t]:
+                row[n+1] = 1
+                
+            mask.append(row)
+            
+        return np.sort(np.array(mask), axis=0)
+    
+    
+    # load data
+    data = load_data(data_path) # shape: (TIME, NUM_NODES, 9)
+    
+    # split into x, y and apply window
+    # this should be fixed to 'numpytic way' instead of for loop
+    # cf) python append(list append) is faster than np.append => https://stackoverflow.com/questions/29839350/numpy-append-vs-python-append
+    x, y = [], []
+    for t in range(data.shape[0]-num_frame-after):
+        curr_x = data[t:t+num_frame, :, 1:] # shape: (NUM_FRAME, NUM_NODES, 8)
+        curr_x = np.swapaxes(curr_x, 0, 1) # shape: (NUM_NODES, NUM_FRAME, 8)
+        curr_y = data[t+num_frame+after-1, :, 0] # shape: (NUM_NODES)
+        x.append(curr_x.tolist())
+        y.append(curr_y.tolist())
+        
+    x = np.array(x) # shape: (NUM_EXAMPLES, NUM_NODES, NUM_FRAME, 8)
+    y = np.array(y) # shape: (NUM_EXAMPLES, NUM_NODES)
+    
+    # split into train/valid/test
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+    x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, test_size=0.2, random_state=0)
+    
+    # extract (t, n)s proportional to labels
+    mask_train = get_mask(y_train)
+    mask_valid = get_mask(y_valid)
+    mask_test = get_mask(y_test)
+    
+    return (x_train, y_train, mask_train), (x_valid, y_valid, mask_valid), (x_test, y_test, mask_test)
 
 def get_window(data_path, frame_size, after, num_nodes=8):
     '''
     given frame_size(window_size) and after, return x(feature) and y(label) from raw sensor data
     of shape: (time, num_nodes, 9)
-    python append(list append) is faster than np.append => https://stackoverflow.com/questions/29839350/numpy-append-vs-python-append
     
     :param data_path the path of data, e.g. sensorData_<node_num>.txt
     :param frame_size number of frame to use at prediction, that is window size
@@ -84,67 +163,39 @@ def get_window(data_path, frame_size, after, num_nodes=8):
     print('end "get_window(%s, %d, %d, %d)"!' % (data_path, frame_size, after, num_nodes))
     return np.array(x), np.array(y)
 
-
-# In[31]:
-
-
-def pick_index(data_path, frame_size, after, num_nodes=8):
+def pick_index(y):
     '''
-    주어진 sensor data는 shape가 (N, number of frame, 9)인 3차원 tensor이다.
-    N은 number of nodes를 의미한다.
-    number of frame은 총 frame의 수를 의미하며 각 frame은 1/8초 간격으로 생성(측정)된다.
-    마지막 9는 sensor data와 사람의 숫자를 의미한다. 0번 index가 사람의 숫자이며 1~8번 index는 8bit binary sensor data를
-    나타낸다.
+    get_window 함수를 통해 data_path에 존재하는 sensor data을 read한 후
+    num_examples = total_frames - frame_size - after + 1인
+    x: (num_examples, num_nodes, frame_size, 8)
+    y: (num_examples, num_nodes)
+    를 얻을 수 있다
     
-    우리의 task는 정확한 사람의 숫자를 예측하는 것이 아니라 0(0명), 1(1~3명), 2(4~6명), 3(7명 이상)의 사람 수의 카테고리를
-    예측하는 것이다. simulation으로 생성된 data를 살펴본 바 대부분의 label이 0으로 되어있음을 확인하였다. 그 결과 label간의 균형을
-    맞추어 학습을 진행하기 위해 전체 data를 그대로 예측하지 않고 label을 기준으로 균등하게 선택된 example에 대해서만 예측을 진행한다.
-    label은 hyper parameter인 (frame_size, after)에 의해 결정된다. 특히 sensor를 설치하는 graph가 바뀌는 경우를 대비하여
-    num_nodes도 pick_index function의 parameter로 이용한다.
+    y에 존재하는 label은 매우 0, 1, 2, 3으로 이루어진 매우 불균형한 data이다.
+    따라서 test set을 통해 performace를 측정할 때 주어진 test set의 모든 label을 사용하지 않고
+    각 label별로 균등하게 뽑은 label에 대해서만 test performance를 측정한다.
     
-    균등하게 선택된 예측하고자 하는 label은 (time, node_number)로 표현할 수 있다.
-    즉 input feature는 data[node_number, time-after-frame_size:time-after, 1:9],
-    output label은 data[node_number, time, 0]으로 나타낼 수 있다.
+    :param y numpy array of shape: (num_examples, num_nodes, num_classes), onehot encoded
     
-    실험하고자 하는 model은 FNN, RNN, GCN 등인데 FNN과 RNN은 특정 시점 t의 특정 node n만을 이용하여 실험을 진행할 수 있지만
-    GCN은 전체 graph 정보를 다 이용한다. 그래서 FNN/RNN과 GCN이 똑같은 (t, n)에 대해 예측을 진행할 수 있도록 pick_index
-    를 통해 예측하고자 하는 label 정보를 return해 준다.
-    
-    return: list of (t, n), t는 t번째 frame, n은 n번째 node를 의미함
-    0 <= t < total_frame
-    0 <= n < num_nodes
+    :return
+    2d numpy array of [example_index, node_index]s
     '''
-    result = [[], [], [], []] # result[k] => [t, n] with label k
-    threshold = 5000 # minimum number of selected examples per label
-    seed = 5 # random seed
-    print('start "pick_index"...')
+
+    arr = [[], [], [], []]
+    y = np.argmax(y, axis=2) # shape: (num_examples, num_nodes)
+    y = y.tolist()
+    for t in range(len(y)):
+        for n in range(len(y[0])):
+            label = y[t][n]
+            arr[label].append((t, n))
+            
+#     min_count = min([len(x) for x in arr])
+    min_count = 500
+    result = []
+    for lst in arr:
+        random.seed(0)
+        random.shuffle(lst)
+        result.extend(lst[:min_count])
     
-    data = load_data(data_path, num_nodes)
-    # iter over time
-    for t in range(data.shape[0]):            
-        if t-after-frame_size+1 < 0:
-            continue
-            
-        for n in range(num_nodes):
-            label = data[t, n, 0]
-            result[label].append((t, n))
-            
-    # shuffle
-    random.seed(seed)
-    for i in range(4):
-        random.shuffle(result[i])
-
-    print('end "pick_index"!')
-    return [
-        *result[0][:threshold],
-        *result[1][:threshold],
-        *result[2][:threshold],
-        *result[3][:threshold],
-    ]
-
-
-# In[ ]:
-
-
-
-
+    
+    return np.array(result)
