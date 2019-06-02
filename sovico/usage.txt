@@ -1,0 +1,2 @@
+python preprocess.py --data_path=data/1234people_160000frame_simple --window_size=40 --after=80 --save_path=data/1234people_160000frame_simple
+python gcn_tf.py --data_path=../data/1234people_160000frame_simple --window_size=40 --after=80 --save_path=../checkpoint/20190603
