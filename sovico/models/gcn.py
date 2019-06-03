@@ -1,19 +1,24 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
+
+import sys
+sys.path.insert(0, '..') # to import preprocess.py
 
 import os
 import argparse
 import pickle
+import logging
 import numpy as np
 import tensorflow as tf
 from keras.utils import to_categorical
+from preprocess import initialize_logger
 from sklearn.metrics import accuracy_score, f1_score, classification_report
 
 
-# In[2]:
+# In[ ]:
 
 
 def get_adj_matrix():
@@ -42,7 +47,7 @@ def get_adj_matrix():
     return arr
 
 
-# In[3]:
+# In[ ]:
 
 
 def normalize_matrix(adj_matrix):
@@ -54,7 +59,7 @@ def normalize_matrix(adj_matrix):
     return np.matmul(np.matmul(dhat_prime, ahat), dhat_prime)
 
 
-# In[4]:
+# In[ ]:
 
 
 def preprocess(x, y, mask):
@@ -86,7 +91,7 @@ def preprocess(x, y, mask):
     return x_, y_, mask_
 
 
-# In[5]:
+# In[ ]:
 
 
 def print_epoch(epoch, loss_train, true_train, pred_train, loss_valid, true_valid, pred_valid):
@@ -96,11 +101,11 @@ def print_epoch(epoch, loss_train, true_train, pred_train, loss_valid, true_vali
     loss_vd = np.mean(loss_valid)
     acc_vd = accuracy_score(true_valid, pred_valid)
     f1_vd = f1_score(true_valid, pred_valid, average='weighted')
-    print('Epoch: %3d, loss_tr: %.4f, acc_tr: %.4f, f1_tr: %.4f, loss_vd: %.4f, acc_vd: %.4f, f1_vd: %.4f'
+    logging.info('Epoch: %3d, loss_tr: %.4f, acc_tr: %.4f, f1_tr: %.4f, loss_vd: %.4f, acc_vd: %.4f, f1_vd: %.4f'
          % (epoch+1, loss_tr, acc_tr, f1_tr, loss_vd, acc_vd, f1_vd))
 
 
-# In[6]:
+# In[ ]:
 
 
 class GCN():
@@ -108,15 +113,14 @@ class GCN():
     2-layer graph convolutional network
     '''
     
-    def __init__(self, input_dim, adj_matrix, dim1, dim2):
+    def __init__(self, input_dim, adj_matrix, gcn_hiddens):
         '''
         GCN constructor
         propagation rule: h' = ADA * h * w
         
         :param: input_dim int length of node's feature
         :param: adj_matrix NxN adjacent matrix with N nodes
-        :param: dim1 number of output neurons in first layer
-        :param: dim2 number of output neurons in second layer
+        :param: gcn_hiddens list of length 2 which denotes neruons in each layer
         '''
 
         self.input_dim = input_dim
@@ -125,7 +129,7 @@ class GCN():
         self.normalized_matrix = tf.constant(normalized_matrix, tf.float32)
         
         num_classes = 4
-        init = tf.contrib.layers.xavier_initializer() # xavier_initalizer
+        init = tf.initializers.he_normal()
         
         # placeholders
         self.x = tf.placeholder(tf.float32, [N, input_dim])
@@ -133,20 +137,20 @@ class GCN():
         self.mask = tf.placeholder(tf.float32, [N])
         
         # first layer
-        self.W1 = tf.Variable(init([input_dim, dim1]))
+        self.W1 = tf.Variable(init([input_dim, gcn_hiddens[0]]))
         self.L1 = tf.matmul(self.normalized_matrix, self.x) # shape: (N, input_dim)
-        self.L1 = tf.matmul(self.L1, self.W1) # shape: (N, dim1)
+        self.L1 = tf.matmul(self.L1, self.W1) # shape: (N, gcn_hiddens[0])
         self.L1 = tf.nn.tanh(self.L1)
 
         # second layer
-        self.W2 = tf.Variable(init([dim1, dim2]))
-        self.L2 = tf.matmul(self.normalized_matrix, self.L1) # shape: (N, dim1)
-        self.L2 = tf.matmul(self.L2, self.W2) # shape: (N, dim2)
+        self.W2 = tf.Variable(init([gcn_hiddens[0], gcn_hiddens[1]]))
+        self.L2 = tf.matmul(self.normalized_matrix, self.L1) # shape: (N, gcn_hiddens[0])
+        self.L2 = tf.matmul(self.L2, self.W2) # shape: (N, gcn_hiddens[1])
         self.L2 = tf.nn.relu(self.L2)
         
         # last layer
-        self.W3 = tf.Variable(init([dim2, num_classes]))
-        self.L3 = tf.matmul(self.normalized_matrix, self.L2) # shape: (N, dim2)
+        self.W3 = tf.Variable(init([gcn_hiddens[1], num_classes]))
+        self.L3 = tf.matmul(self.normalized_matrix, self.L2) # shape: (N, gcn_hiddens[1])
         self.L3 = tf.matmul(self.L3, self.W3) # shape: (N, num_classes)
         
         # loss
@@ -157,20 +161,20 @@ class GCN():
         # prediction
         self.pred = tf.argmax(self.L3, axis=1)
         
-    def fit(self, data, save_path, learning_rate=0.0001, epochs=500, patience=30):
+    def fit(self, data, save_dir, learning_rate=0.0001, epochs=500, patience=30):
         '''
-        train using given dataset and hyper-parameters and then save model to save_path
-        because we use validation set, we will save model to save_path everywhen there comes best validation loss
+        train using given dataset and hyper-parameters and then save model to save_dir
+        because we use validation set, we will save model to save_dir everywhen there comes best validation loss
         also we use early stopping with default patience as 20
         (e.g. stop training if validation loss does not get better during consecutive 20 epochs)
         
         :param: data tuple of 3 dataset(train, valid, test) which is output of preprocess.prepare_data()
-        :param: save_path path where trained model and train results will be saved
+        :param: save_dir path where trained model and train results will be saved
         :param: learning_rate
         :param: epochs
         '''
 
-        print('start fit function')
+        logging.info('start fit function')
         
         # optimizer
         optimizer = tf.train.AdamOptimizer(learning_rate)
@@ -197,7 +201,6 @@ class GCN():
         assert x_test.shape[0] == y_test.shape[0] == mask_test.shape[0]
         assert self.input_dim == x_train.shape[2]
 
-        
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
             saver = tf.train.Saver()
@@ -224,8 +227,9 @@ class GCN():
                         self.mask: mask_train_[i]
                     })
                     loss_train.append(l)
-                    true_train.extend(true[mask_train_[i]].tolist())
-                    pred_train.extend(pred[mask_train_[i]].tolist())
+                    true_train.extend(true[np.argwhere(mask_train_[i]).reshape(-1)].tolist())
+                    pred_train.extend(pred[np.argwhere(mask_train_[i]).reshape(-1)].tolist())
+#                     print('length check:', mask_train_[i], true, true[np.argwhere(mask_train_[i]).reshape(-1)].tolist())
                     
                     
                 # iter over validset
@@ -241,27 +245,23 @@ class GCN():
                         self.mask: mask_valid[i]
                     })
                     loss_valid.append(l)
-                    true_valid.extend(true[mask_valid[i]].tolist())
-                    pred_valid.extend(pred[mask_valid[i]].tolist())
+                    true_valid.extend(true[np.argwhere(mask_valid[i]).reshape(-1)].tolist())
+                    pred_valid.extend(pred[np.argwhere(mask_valid[i]).reshape(-1)].tolist())
                     
                 # print this epoch
                 print_epoch(epoch, loss_train, true_train, pred_train, loss_valid, true_valid, pred_valid)
                 
-                
-                loss_valid = np.mean(loss_valid)
                 # early stopping check
+                loss_valid = np.mean(loss_valid)
                 if min_valid_loss is None or min_valid_loss > loss_valid:
                     min_valid_loss = loss_valid
-                    saver.save(sess, save_path)
+                    saver.save(sess, os.path.join(save_dir, 'model'))
                     patience_counter = 0
                 else:
                     patience_counter += 1
                     if patience_counter > 20:
                         break
                                
-            # valid set classification report
-            print(classification_report(true_valid, pred_valid))
-                            
             # evaluation on testset
             num_iter_test = x_test.shape[0]
             loss_test = []
@@ -275,38 +275,29 @@ class GCN():
                     self.mask: mask_test[i]
                 })
                 loss_test.append(l)
-                true_test.extend(true[mask_test[i]].tolist())
-                pred_test.extend(pred[mask_test[i]].tolist())
+                true_test.extend(true[np.argwhere(mask_test[i]).reshape(-1)].tolist())
+                pred_test.extend(pred[np.argwhere(mask_test[i]).reshape(-1)].tolist())
                 
             loss_te = np.mean(loss_test)
             acc_te = accuracy_score(true_test, pred_test)
             f1_te = f1_score(true_test, pred_test, average='weighted')
-            print('Evaluation, loss_te: %.4f, acc_te: %.4f, f1_te: %.4f' % (loss_te, acc_te, f1_te))
-            print(classification_report(true_test, pred_test))
+            logging.info('Evaluation, loss_te: %.4f, acc_te: %.4f, f1_te: %.4f' % (loss_te, acc_te, f1_te))
+            
+            # valid set classification report
+            logging.info(classification_report(true_valid, pred_valid))
+            # test set classification report
+            logging.info(classification_report(true_test, pred_test))
 
 
-# In[7]:
+# In[ ]:
 
 
-# data_path = '../data/1234people_160000frame_simple'
-# window_size = 40
-# after = 80
-# save_path = '../save_path'
-# learning_rate = 0.001
-# input_dim1 = 32
-# input_dim2 = 32
-# input_dim = window_size*8
-# epochs=300
-
-# # load data
-# filename = 'prediction_preprocessed_{}window_{}after.pkl'.format(window_size, after)
-# path = os.path.join(data_path, filename)
-# with open(path, 'rb') as f:
-#     data = pickle.load(f)
-
-# adj_matrix = get_adj_matrix()
-# gcn = GCN(input_dim, adj_matrix, input_dim1, input_dim2)
-# gcn.fit(data, save_path, learning_rate=0.0001, epochs=epochs, patience=10)
+def get_modelname(window_size, after, gcn_hiddens):
+    '''
+    model을 식별할 수 있는 이름을 지정해주는 함수
+    '''
+    
+    return 'gcn_window{}_after{}_dims{}'.format(window_size, after, gcn_hiddens)
 
 
 # In[ ]:
@@ -314,23 +305,38 @@ class GCN():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_path', type=str, required=True, help='preprocessed data path')
+    parser.add_argument('--data_dir', type=str, required=True, help='preprocessed data dir')
     parser.add_argument('--window_size', type=int, required=True, help='number of frame in window')
     parser.add_argument('--after', type=int, required=True, help='number of after window')
-    parser.add_argument('--save_path', type=str, required=True, help='path to save train result')
-    parser.add_argument('--lr', type=str, default=0.0001, help='learning_rate')
-    parser.add_argument('--input_dim1', type=str, default=32, help='input_dim1 of GCN')
-    parser.add_argument('--input_dim2', type=str, default=32, help='input_dim2 of GCN')
+    parser.add_argument('--save_dir', type=str, required=True, help='dir to save train result')
+    parser.add_argument('--lr', type=float, default=0.0001, help='learning_rate')
+    parser.add_argument('--gcn_hiddens', type=int, nargs='+')
     args = parser.parse_args()
 
+    # log와 ckpt가 저장될 directory 생성
+    modelname = get_modelname(args.window_size, args.after, args.gcn_hiddens)
+    path = os.path.join(args.save_dir, modelname)
+    if not os.path.isdir(path):
+        os.mkdir(path)
+        
+    # logger 초기화
+    initialize_logger(path)
+        
     # load data
-    filename = 'prediction_preprocessed_{}window_{}after.pkl'.format(args.window_size, args.after)
-    path = os.path.join(args.data_path, filename)
-    with open(path, 'rb') as f:
+    data_filename = 'prediction_preprocessed_{}window_{}after.pkl'.format(args.window_size, args.after)
+    data_filename = os.path.join(args.data_dir, data_filename)
+    with open(data_filename, 'rb') as f:
         data = pickle.load(f)
 
     input_dim = args.window_size * 8
     adj_matrix = get_adj_matrix()
-    gcn = GCN(input_dim, adj_matrix, args.input_dim1, args.input_dim2)
-    gcn.fit(data, save_path=args.save_path, learning_rate=args.lr)
+    model = GCN(input_dim, adj_matrix, args.gcn_hiddens)
+    model.fit(data, save_dir=path, learning_rate=args.lr)
+    
+
+
+# In[ ]:
+
+
+
 
