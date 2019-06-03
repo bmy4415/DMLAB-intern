@@ -1,2 +1,3 @@
 python preprocess.py --data_path=data/1234people_160000frame_simple --window_size=40 --after=80 --save_path=data/1234people_160000frame_simple
 python gcn.py --data_dir=../data/1234people_160000frame_simple --window_size=40 --after=80 --save_dir=../checkpoint --gcn_hiddens 16 32
+python lstm_gcn.py --data_dir=../data/1234people_160000frame_simple --window_size=40 --after=80 --save_dir=../checkpoint --lstm_hiddens 32 32 32 --gcn_hiddens 16 32
