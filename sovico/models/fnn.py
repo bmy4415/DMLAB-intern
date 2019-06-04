@@ -13,14 +13,12 @@ import pickle
 import logging
 import numpy as np
 
-
 from keras.models import Sequential
 from keras.backend import tensorflow_backend as K
 from keras.utils import to_categorical
 from keras.layers import LSTM, Dense, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.callbacks import EarlyStopping
-
 
 from preprocess import initialize_logger
 from sklearn.metrics import classification_report, accuracy_score
@@ -69,20 +67,6 @@ def preprocess(x, y, mask):
     x_ = np.array(x_) # shape: (NUM_EXAMPLES', WINDOW_SIZE*8)
     y_ = np.array(y_) # shape: (NUM_EXAMPLES', NUM_CLASSES)
     return x_, y_
-
-
-# In[ ]:
-
-
-# def print_epoch(epoch, loss_train, true_train, pred_train, loss_valid, true_valid, pred_valid):
-#     loss_tr = np.mean(loss_train)
-#     acc_tr = accuracy_score(true_train, pred_train)
-#     f1_tr = f1_score(true_train, pred_train, average='weighted')
-#     loss_vd = np.mean(loss_valid)
-#     acc_vd = accuracy_score(true_valid, pred_valid)
-#     f1_vd = f1_score(true_valid, pred_valid, average='weighted')
-#     logging.info('Epoch: %3d, loss_tr: %.4f, acc_tr: %.4f, f1_tr: %.4f, loss_vd: %.4f, acc_vd: %.4f, f1_vd: %.4f'
-#          % (epoch+1, loss_tr, acc_tr, f1_tr, loss_vd, acc_vd, f1_vd))
 
 
 # In[ ]:
@@ -182,6 +166,13 @@ class FNN():
         # test set classification report
         logging.info('test acc: {}'.format(acc_test))
         logging.info(classification_report(true_test, pred_test))
+        
+        # save model
+        self.model.save(os.path.join(save_dir, 'model.h5'))
+        
+        # load model
+        # from keras.models import load_model
+        # model = load_model('my_model.h5')
 
 
 # In[ ]:
