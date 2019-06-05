@@ -228,9 +228,7 @@ class GCN():
                     })
                     loss_train.append(l)
                     true_train.extend(true[np.argwhere(mask_train_[i]).reshape(-1)].tolist())
-                    pred_train.extend(pred[np.argwhere(mask_train_[i]).reshape(-1)].tolist())
-#                     print('length check:', mask_train_[i], true, true[np.argwhere(mask_train_[i]).reshape(-1)].tolist())
-                    
+                    pred_train.extend(pred[np.argwhere(mask_train_[i]).reshape(-1)].tolist())                    
                     
                 # iter over validset
                 num_iter_valid = x_valid.shape[0]

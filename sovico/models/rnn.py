@@ -71,47 +71,6 @@ def preprocess(x, y, mask):
 # In[ ]:
 
 
-class LSTM_net():
-    # input_dim = 8 * num_hops
-    # timesteps = frame_size
-    def __init__(self, timesteps, input_dim):
-        model = Sequential()
-        
-        model.add(LSTM(128, return_sequences=True, input_shape=(timesteps, input_dim)))
-        model.add(BatchNormalization())
-        
-        model.add(LSTM(128, return_sequences=True))
-        model.add(BatchNormalization())
-        
-        model.add(LSTM(32))
-        model.add(BatchNormalization())
-        
-        model.add(Dense(128, activation='relu'))
-        model.add(BatchNormalization())
-        model.add(Activation('relu'))
-        
-        model.add(Dense(4))
-        model.add(BatchNormalization())
-        model.add(Activation('softmax'))
-
-        model = multi_gpu_model(model, gpus=4)
-        optimizer = Adam(lr=0.0003)
-        model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
-        self.model = model
-        
-    def fit(self, x, y, epochs, batch_size):
-        early_stopping = EarlyStopping(monitor='val_acc', patience=20)
-        return self.model.fit(x, y, epochs=epochs, batch_size=batch_size, 
-                              validation_split=0.25,
-                              callbacks=[early_stopping])
-        
-    def evaluate(self, x, y, batch_size=256):
-        return self.model.evaluate(x, y, batch_size=batch_size)
-
-
-# In[ ]:
-
-
 class RNN():
     '''
     3-layer RNN network consists of LSTM cell

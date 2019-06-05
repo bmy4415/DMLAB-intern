@@ -45,8 +45,8 @@ def preprocess(x, y, mask):
     :param: mask (NUM_TIMES, NUM_NODES+1)
     
     :return (NUM_TIMES, x', y', mask')
-    x': numpy array of shape (NUM_TIMES, NUM_NODES, WINDOW_SIZE*8) which is flattened over WINDOW_SIZE
-    y': numpy array of shape (NUM_TIMES, NUM_NODES, NUM_CLASSES) which is one-hotted
+    x': numpy array of shape (NUM_EXAMPLES, WINDOW_SIZE*8) which is flattened over WINDOW_SIZE
+    y': numpy array of shape (NUM_EXAMPLES, NUM_CLASSES) which is one-hotted
     '''
     
     x = np.reshape(x, [x.shape[0], x.shape[1], x.shape[2]*x.shape[3]])
