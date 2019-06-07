@@ -208,7 +208,7 @@ if __name__ == '__main__':
         
         # save as pickle file
         with open(path, 'wb') as f:
-            pickle.dump(preprocessed, f)
+            pickle.dump(preprocessed, f, protocol=4)
             
         print(path, 'saved!')
 
