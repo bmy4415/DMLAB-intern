@@ -182,11 +182,7 @@ class GCN():
         
         y_true = tf.argmax(self.y, axis=1)
         y_pred = tf.argmax(self.L3, axis=1)
-        
-        # accuracy and f1 score
-        acc = tf.contrib.metrics.accuracy(labels=y_true, predictions=y_pred)
-        f1 = tf.contrib.metrics.f1_score(labels=y_true, predictions=y_pred)
-        
+                
         # preprocess data for GCN
         # x: (NUM_EXAMPLES, NUM_NODES, WINDOW_SIZE*8)
         # y: (NUM_EXAMPLES, NUM_NODES, NUM_CLASSES)
