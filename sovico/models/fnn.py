@@ -120,11 +120,11 @@ class FNN():
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         self.model = model
         
-    def fit(self, data, save_dir, learning_rate=0.0001, epochs=500, patience=30):
+    def fit(self, data, save_dir, learning_rate=0.001, epochs=500, patience=10):
         '''
         train using given dataset and hyper-parameters and then save model to save_dir
         because we use validation set, we will save model to save_dir everywhen there comes best validation loss
-        also we use early stopping with default patience as 20
+        also we use early stopping with default patience as 10
         (e.g. stop training if validation loss does not get better during consecutive 20 epochs)
         
         :param: data tuple of 3 dataset(train, valid, test) which is output of preprocess.prepare_data()

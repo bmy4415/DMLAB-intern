@@ -114,7 +114,7 @@ class LSTM_GCN():
     window of frames is treated as sequence
     each window is converted to vector via RNN network, also, this vector is feature of node
     GCN is 2-layer
-    LSTM is 3-layer
+    LSTM is 2-layer
     '''
     def __init__(self, window_size, adj_matrix, lstm_hiddens, gcn_hiddens):
         '''
@@ -122,7 +122,7 @@ class LSTM_GCN():
         
         :param: window_size number of frames in window
         :param: adj_matrix NxN adjacent matrix with N nodes
-        :param: lstm_hiddens list of length 3 which denotes number of neurons in each lstm layer
+        :param: lstm_hiddens list of length 2 which denotes number of neurons in each lstm layer
         :param: gcn_hiddens list of length 2 which denotes number of neurons in each gcn layer
         '''
         
@@ -160,9 +160,7 @@ class LSTM_GCN():
         self.L2 = tf.nn.tanh(self.L2)
         
         self.W3 = tf.Variable(init([gcn_hiddens[1], num_classes]))
-        self.L3 = tf.matmul(self.normalized_matrix, self.L2)
-        self.L3 = tf.matmul(self.L3, self.W3)
-        self.L3 = tf.nn.tanh(self.L3)
+        self.L3 = tf.matmul(self.L2, self.W3)
         
         # loss
         self.loss = tf.nn.softmax_cross_entropy_with_logits_v2(logits=self.L3, labels=self.y)
@@ -172,11 +170,11 @@ class LSTM_GCN():
         # prediction
         self.pred = tf.argmax(self.L3, axis=1)
         
-    def fit(self, data, save_dir, learning_rate=0.0001, epochs=500, patience=30):
+    def fit(self, data, save_dir, learning_rate=0.001, epochs=500, patience=10):
         '''
         train using given dataset and hyper-parameters and then save model to save_dir
         because we use validation set, we will save model to save_dir everywhen there comes best validation loss
-        also we use early stopping with default patience as 20
+        also we use early stopping with default patience as 10
         (e.g. stop training if validation loss does not get better during consecutive 20 epochs)
         
         :param: data tuple of 3 dataset(train, valid, test) which is output of preprocess.prepare_data()
@@ -263,7 +261,7 @@ class LSTM_GCN():
                     patience_counter = 0
                 else:
                     patience_counter += 1
-                    if patience_counter > 20:
+                    if patience_counter > patience:
                         break
                                
             # evaluation on testset

@@ -19,6 +19,7 @@ from keras.utils import to_categorical
 from keras.layers import LSTM, Dense, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.callbacks import EarlyStopping
+from keras.optimizers import Adam
 
 from preprocess import initialize_logger
 from sklearn.metrics import classification_report, accuracy_score
@@ -73,7 +74,7 @@ def preprocess(x, y, mask):
 
 class RNN():
     '''
-    3-layer RNN network consists of LSTM cell
+    2-layer RNN network consists of LSTM cell
     '''
     
     def __init__(self, window_size, rnn_hiddens):
@@ -82,30 +83,28 @@ class RNN():
         window_size represents sequence length
         
         :param: window_size number of frames to use, this is also sequence length
-        :param: rnn_hiddens list of length 6 which denotes neruons in each layer
+        :param: rnn_hiddens list of length 2 which denotes neruons in each layer
         '''
 
         input_dim = 8 # 8bit sensor data
         num_classes = 4
 
-        # 3-layer lstm
+        # 2-layer lstm
         model = Sequential()
         model.add(LSTM(rnn_hiddens[0], return_sequences=True, input_shape=(window_size, input_dim)))
-        model.add(LSTM(rnn_hiddens[1], return_sequences=True))
-        model.add(LSTM(rnn_hiddens[2]))
-        model.add(BatchNormalization())
+        model.add(LSTM(rnn_hiddens[1]))
         
         model.add(Dense(4)) # output layer
         model.add(Activation('softmax'))
         
-        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+        model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.002), metrics=['accuracy'])
         self.model = model
         
-    def fit(self, data, save_dir, learning_rate=0.0001, epochs=500, patience=30):
+    def fit(self, data, save_dir, learning_rate=0.001, epochs=500, patience=10):
         '''
         train using given dataset and hyper-parameters and then save model to save_dir
         because we use validation set, we will save model to save_dir everywhen there comes best validation loss
-        also we use early stopping with default patience as 20
+        also we use early stopping with default patience as 10
         (e.g. stop training if validation loss does not get better during consecutive 20 epochs)
         
         :param: data tuple of 3 dataset(train, valid, test) which is output of preprocess.prepare_data()

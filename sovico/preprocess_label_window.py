@@ -115,7 +115,7 @@ def prepare_data(data_path, window_size, after, NUM_NODES=8):
                 arr[label].append((t, n))
 
         # upto = min([len(x) for x in arr])
-        upto = 5000
+        upto = 1000
         result = []
         for lst in arr:
             random.seed(0)
@@ -123,8 +123,8 @@ def prepare_data(data_path, window_size, after, NUM_NODES=8):
             result.extend(lst[:upto])
 
         # labels in original set
-        for i in range(4):
-            print('label %d: %d' % (i, len(arr[i])))
+        # for i in range(4):
+        #     print('label %d: %d' % (i, len(arr[i])))
                         
         # until now, result consists of (time, node_number)
         # group by time
@@ -153,8 +153,8 @@ def prepare_data(data_path, window_size, after, NUM_NODES=8):
     # load data
     data = load_data(data_path) # shape: (TIME, NUM_NODES, 9)
     
-    # label window size: 1.5sec == 12 frame
-    LABEL_WINDOW_SIZE = 12
+    # label window size: 1sec == 8frame
+    LABEL_WINDOW_SIZE = 8
     
     # split into x, y and apply window
     # this should be fixed to 'numpytic way' instead of for loop
@@ -167,20 +167,11 @@ def prepare_data(data_path, window_size, after, NUM_NODES=8):
         y_start = t+window_size+after-1 - LABEL_WINDOW_SIZE
         y_end = t+window_size+after + LABEL_WINDOW_SIZE
         curr_y = data[y_start:y_end, :, 0] # shape: (LABEL_WINDOW_SIZE*2+1, NUM_NODES)
-        if t == 0:
-            print('curr_y:', curr_y.shape)
-            print(curr_y)
         counts = np.apply_along_axis(
             lambda x: np.bincount(x, minlength=4),
             axis=0,
             arr=curr_y.astype(np.int64))
-        if t == 0:
-            print('counts:', counts.shape)
-            print(counts)
         curr_y = np.argmax(counts, axis=0)
-        if t == 0:
-            print('curr_y:', curr_y.shape)
-            print(curr_y)
         
         x.append(curr_x.tolist())
         y.append(curr_y.tolist())
