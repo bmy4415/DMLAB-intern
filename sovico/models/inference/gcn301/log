@@ -1,0 +1,55 @@
+INFO - start fit function
+INFO - Epoch:   1, loss_tr: 0.1413, acc_tr: 0.5817, f1_tr: 0.5902, loss_vd: 0.1198, acc_vd: 0.6478, f1_vd: 0.6530
+INFO - Epoch:   2, loss_tr: 0.1069, acc_tr: 0.7050, f1_tr: 0.7100, loss_vd: 0.1019, acc_vd: 0.7455, f1_vd: 0.7501
+INFO - Epoch:   3, loss_tr: 0.0915, acc_tr: 0.7798, f1_tr: 0.7819, loss_vd: 0.0911, acc_vd: 0.7812, f1_vd: 0.7820
+INFO - Epoch:   4, loss_tr: 0.0810, acc_tr: 0.8255, f1_tr: 0.8261, loss_vd: 0.0824, acc_vd: 0.8377, f1_vd: 0.8384
+INFO - Epoch:   5, loss_tr: 0.0732, acc_tr: 0.8512, f1_tr: 0.8517, loss_vd: 0.0781, acc_vd: 0.8385, f1_vd: 0.8389
+INFO - Epoch:   6, loss_tr: 0.0672, acc_tr: 0.8670, f1_tr: 0.8672, loss_vd: 0.0738, acc_vd: 0.8570, f1_vd: 0.8573
+INFO - Epoch:   7, loss_tr: 0.0618, acc_tr: 0.8868, f1_tr: 0.8868, loss_vd: 0.0708, acc_vd: 0.8685, f1_vd: 0.8687
+INFO - Epoch:   8, loss_tr: 0.0577, acc_tr: 0.8992, f1_tr: 0.8993, loss_vd: 0.0673, acc_vd: 0.8830, f1_vd: 0.8830
+INFO - Epoch:   9, loss_tr: 0.0540, acc_tr: 0.9110, f1_tr: 0.9109, loss_vd: 0.0660, acc_vd: 0.8842, f1_vd: 0.8835
+INFO - Epoch:  10, loss_tr: 0.0510, acc_tr: 0.9205, f1_tr: 0.9203, loss_vd: 0.0657, acc_vd: 0.8852, f1_vd: 0.8851
+INFO - Epoch:  11, loss_tr: 0.0481, acc_tr: 0.9230, f1_tr: 0.9227, loss_vd: 0.0638, acc_vd: 0.8982, f1_vd: 0.8970
+INFO - Epoch:  12, loss_tr: 0.0463, acc_tr: 0.9330, f1_tr: 0.9327, loss_vd: 0.0610, acc_vd: 0.8965, f1_vd: 0.8961
+INFO - Epoch:  13, loss_tr: 0.0441, acc_tr: 0.9320, f1_tr: 0.9317, loss_vd: 0.0612, acc_vd: 0.8930, f1_vd: 0.8928
+INFO - Epoch:  14, loss_tr: 0.0424, acc_tr: 0.9433, f1_tr: 0.9430, loss_vd: 0.0602, acc_vd: 0.9032, f1_vd: 0.9025
+INFO - Epoch:  15, loss_tr: 0.0407, acc_tr: 0.9410, f1_tr: 0.9408, loss_vd: 0.0615, acc_vd: 0.9058, f1_vd: 0.9047
+INFO - Epoch:  16, loss_tr: 0.0400, acc_tr: 0.9465, f1_tr: 0.9463, loss_vd: 0.0591, acc_vd: 0.9187, f1_vd: 0.9176
+INFO - Epoch:  17, loss_tr: 0.0386, acc_tr: 0.9470, f1_tr: 0.9467, loss_vd: 0.0581, acc_vd: 0.9127, f1_vd: 0.9115
+INFO - Epoch:  18, loss_tr: 0.0375, acc_tr: 0.9497, f1_tr: 0.9495, loss_vd: 0.0584, acc_vd: 0.9103, f1_vd: 0.9094
+INFO - Epoch:  19, loss_tr: 0.0368, acc_tr: 0.9510, f1_tr: 0.9508, loss_vd: 0.0577, acc_vd: 0.9257, f1_vd: 0.9244
+INFO - Epoch:  20, loss_tr: 0.0359, acc_tr: 0.9567, f1_tr: 0.9565, loss_vd: 0.0574, acc_vd: 0.9125, f1_vd: 0.9119
+INFO - Epoch:  21, loss_tr: 0.0344, acc_tr: 0.9543, f1_tr: 0.9541, loss_vd: 0.0613, acc_vd: 0.9203, f1_vd: 0.9187
+INFO - Epoch:  22, loss_tr: 0.0343, acc_tr: 0.9567, f1_tr: 0.9565, loss_vd: 0.0578, acc_vd: 0.9195, f1_vd: 0.9183
+INFO - Epoch:  23, loss_tr: 0.0335, acc_tr: 0.9620, f1_tr: 0.9618, loss_vd: 0.0580, acc_vd: 0.9155, f1_vd: 0.9146
+INFO - Epoch:  24, loss_tr: 0.0333, acc_tr: 0.9617, f1_tr: 0.9616, loss_vd: 0.0585, acc_vd: 0.9293, f1_vd: 0.9280
+INFO - Epoch:  25, loss_tr: 0.0327, acc_tr: 0.9627, f1_tr: 0.9626, loss_vd: 0.0588, acc_vd: 0.9285, f1_vd: 0.9271
+INFO - Epoch:  26, loss_tr: 0.0321, acc_tr: 0.9625, f1_tr: 0.9623, loss_vd: 0.0583, acc_vd: 0.9300, f1_vd: 0.9286
+INFO - Epoch:  27, loss_tr: 0.0316, acc_tr: 0.9643, f1_tr: 0.9641, loss_vd: 0.0589, acc_vd: 0.9287, f1_vd: 0.9275
+INFO - Epoch:  28, loss_tr: 0.0314, acc_tr: 0.9643, f1_tr: 0.9641, loss_vd: 0.0594, acc_vd: 0.9317, f1_vd: 0.9306
+INFO - Epoch:  29, loss_tr: 0.0307, acc_tr: 0.9667, f1_tr: 0.9666, loss_vd: 0.0599, acc_vd: 0.9273, f1_vd: 0.9261
+INFO - Epoch:  30, loss_tr: 0.0305, acc_tr: 0.9647, f1_tr: 0.9646, loss_vd: 0.0615, acc_vd: 0.9257, f1_vd: 0.9245
+INFO - Epoch:  31, loss_tr: 0.0302, acc_tr: 0.9647, f1_tr: 0.9646, loss_vd: 0.0615, acc_vd: 0.9290, f1_vd: 0.9276
+INFO - Evaluation, loss_te: 0.0617, acc_te: 0.9327, f1_te: 0.9315
+INFO -               precision    recall  f1-score   support
+
+           0       0.98      0.80      0.88      1000
+           1       0.94      0.99      0.97      1000
+           2       0.91      0.99      0.95      1000
+           3       0.90      0.93      0.91      1000
+
+    accuracy                           0.93      4000
+   macro avg       0.93      0.93      0.93      4000
+weighted avg       0.93      0.93      0.93      4000
+
+INFO -               precision    recall  f1-score   support
+
+           0       0.98      0.82      0.89      1000
+           1       0.94      1.00      0.97      1000
+           2       0.90      0.99      0.94      1000
+           3       0.93      0.93      0.93      1000
+
+    accuracy                           0.93      4000
+   macro avg       0.94      0.93      0.93      4000
+weighted avg       0.94      0.93      0.93      4000
+

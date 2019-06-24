@@ -1,0 +1,96 @@
+WARNING - From lstm_gcn.py:144: LSTMCell.__init__ (from tensorflow.python.ops.rnn_cell_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This class is equivalent as tf.keras.layers.LSTMCell, and will be replaced by that in Tensorflow 2.0.
+WARNING - From lstm_gcn.py:144: MultiRNNCell.__init__ (from tensorflow.python.ops.rnn_cell_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This class is equivalent as tf.keras.layers.StackedRNNCells, and will be replaced by that in Tensorflow 2.0.
+WARNING - From lstm_gcn.py:149: static_rnn (from tensorflow.python.ops.rnn) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `keras.layers.RNN(cell, unroll=True)`, which is equivalent to this API
+WARNING - From /home/bmy4415/.conda/envs/myenv/lib/python3.5/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+INFO - start fit function
+INFO - Epoch:   1, loss_tr: 0.1360, acc_tr: 0.4810, f1_tr: 0.4508, loss_vd: 0.1063, acc_vd: 0.6270, f1_vd: 0.5861
+INFO - Epoch:   2, loss_tr: 0.0953, acc_tr: 0.6390, f1_tr: 0.6300, loss_vd: 0.0816, acc_vd: 0.7430, f1_vd: 0.7178
+INFO - Epoch:   3, loss_tr: 0.0812, acc_tr: 0.7190, f1_tr: 0.7213, loss_vd: 0.0759, acc_vd: 0.7500, f1_vd: 0.7521
+INFO - Epoch:   4, loss_tr: 0.0712, acc_tr: 0.7708, f1_tr: 0.7719, loss_vd: 0.0583, acc_vd: 0.8482, f1_vd: 0.8478
+INFO - Epoch:   5, loss_tr: 0.0619, acc_tr: 0.8267, f1_tr: 0.8279, loss_vd: 0.0638, acc_vd: 0.7895, f1_vd: 0.7877
+INFO - Epoch:   6, loss_tr: 0.0540, acc_tr: 0.8472, f1_tr: 0.8482, loss_vd: 0.0509, acc_vd: 0.8545, f1_vd: 0.8516
+INFO - Epoch:   7, loss_tr: 0.0480, acc_tr: 0.8740, f1_tr: 0.8743, loss_vd: 0.0389, acc_vd: 0.9250, f1_vd: 0.9244
+INFO - Epoch:   8, loss_tr: 0.0417, acc_tr: 0.9035, f1_tr: 0.9035, loss_vd: 0.0500, acc_vd: 0.8568, f1_vd: 0.8560
+INFO - Epoch:   9, loss_tr: 0.0399, acc_tr: 0.9035, f1_tr: 0.9035, loss_vd: 0.0312, acc_vd: 0.9360, f1_vd: 0.9354
+INFO - Epoch:  10, loss_tr: 0.0352, acc_tr: 0.9150, f1_tr: 0.9148, loss_vd: 0.0308, acc_vd: 0.9370, f1_vd: 0.9361
+INFO - Epoch:  11, loss_tr: 0.0347, acc_tr: 0.9137, f1_tr: 0.9135, loss_vd: 0.0326, acc_vd: 0.9390, f1_vd: 0.9383
+INFO - Epoch:  12, loss_tr: 0.0348, acc_tr: 0.9163, f1_tr: 0.9161, loss_vd: 0.0353, acc_vd: 0.9233, f1_vd: 0.9235
+INFO - Epoch:  13, loss_tr: 0.0316, acc_tr: 0.9233, f1_tr: 0.9230, loss_vd: 0.0312, acc_vd: 0.9313, f1_vd: 0.9309
+INFO - Epoch:  14, loss_tr: 0.0291, acc_tr: 0.9340, f1_tr: 0.9339, loss_vd: 0.0318, acc_vd: 0.9137, f1_vd: 0.9139
+INFO - Epoch:  15, loss_tr: 0.0288, acc_tr: 0.9340, f1_tr: 0.9338, loss_vd: 0.0315, acc_vd: 0.9243, f1_vd: 0.9242
+INFO - Epoch:  16, loss_tr: 0.0265, acc_tr: 0.9405, f1_tr: 0.9404, loss_vd: 0.0226, acc_vd: 0.9527, f1_vd: 0.9524
+INFO - Epoch:  17, loss_tr: 0.0243, acc_tr: 0.9445, f1_tr: 0.9444, loss_vd: 0.0271, acc_vd: 0.9340, f1_vd: 0.9340
+INFO - Epoch:  18, loss_tr: 0.0253, acc_tr: 0.9417, f1_tr: 0.9418, loss_vd: 0.0324, acc_vd: 0.9177, f1_vd: 0.9179
+INFO - Epoch:  19, loss_tr: 0.0250, acc_tr: 0.9407, f1_tr: 0.9408, loss_vd: 0.0246, acc_vd: 0.9410, f1_vd: 0.9410
+INFO - Epoch:  20, loss_tr: 0.0232, acc_tr: 0.9500, f1_tr: 0.9500, loss_vd: 0.0227, acc_vd: 0.9487, f1_vd: 0.9486
+INFO - Epoch:  21, loss_tr: 0.0217, acc_tr: 0.9543, f1_tr: 0.9542, loss_vd: 0.0209, acc_vd: 0.9545, f1_vd: 0.9543
+INFO - Epoch:  22, loss_tr: 0.0231, acc_tr: 0.9497, f1_tr: 0.9498, loss_vd: 0.0245, acc_vd: 0.9483, f1_vd: 0.9481
+INFO - Epoch:  23, loss_tr: 0.0211, acc_tr: 0.9513, f1_tr: 0.9512, loss_vd: 0.0216, acc_vd: 0.9533, f1_vd: 0.9529
+INFO - Epoch:  24, loss_tr: 0.0218, acc_tr: 0.9533, f1_tr: 0.9532, loss_vd: 0.0207, acc_vd: 0.9580, f1_vd: 0.9578
+INFO - Epoch:  25, loss_tr: 0.0189, acc_tr: 0.9610, f1_tr: 0.9610, loss_vd: 0.0199, acc_vd: 0.9573, f1_vd: 0.9569
+INFO - Epoch:  26, loss_tr: 0.0194, acc_tr: 0.9593, f1_tr: 0.9592, loss_vd: 0.0196, acc_vd: 0.9610, f1_vd: 0.9607
+INFO - Epoch:  27, loss_tr: 0.0192, acc_tr: 0.9597, f1_tr: 0.9598, loss_vd: 0.0175, acc_vd: 0.9680, f1_vd: 0.9678
+INFO - Epoch:  28, loss_tr: 0.0183, acc_tr: 0.9565, f1_tr: 0.9565, loss_vd: 0.0172, acc_vd: 0.9667, f1_vd: 0.9666
+INFO - Epoch:  29, loss_tr: 0.0167, acc_tr: 0.9645, f1_tr: 0.9645, loss_vd: 0.0218, acc_vd: 0.9575, f1_vd: 0.9570
+INFO - Epoch:  30, loss_tr: 0.0164, acc_tr: 0.9623, f1_tr: 0.9622, loss_vd: 0.0211, acc_vd: 0.9590, f1_vd: 0.9589
+INFO - Epoch:  31, loss_tr: 0.0173, acc_tr: 0.9623, f1_tr: 0.9622, loss_vd: 0.0193, acc_vd: 0.9605, f1_vd: 0.9604
+INFO - Epoch:  32, loss_tr: 0.0172, acc_tr: 0.9573, f1_tr: 0.9573, loss_vd: 0.0163, acc_vd: 0.9665, f1_vd: 0.9663
+INFO - Epoch:  33, loss_tr: 0.0154, acc_tr: 0.9692, f1_tr: 0.9693, loss_vd: 0.0161, acc_vd: 0.9667, f1_vd: 0.9665
+INFO - Epoch:  34, loss_tr: 0.0156, acc_tr: 0.9680, f1_tr: 0.9680, loss_vd: 0.0192, acc_vd: 0.9643, f1_vd: 0.9642
+INFO - Epoch:  35, loss_tr: 0.0152, acc_tr: 0.9708, f1_tr: 0.9708, loss_vd: 0.0154, acc_vd: 0.9680, f1_vd: 0.9678
+INFO - Epoch:  36, loss_tr: 0.0153, acc_tr: 0.9665, f1_tr: 0.9665, loss_vd: 0.0144, acc_vd: 0.9710, f1_vd: 0.9708
+INFO - Epoch:  37, loss_tr: 0.0167, acc_tr: 0.9650, f1_tr: 0.9650, loss_vd: 0.0165, acc_vd: 0.9688, f1_vd: 0.9687
+INFO - Epoch:  38, loss_tr: 0.0134, acc_tr: 0.9720, f1_tr: 0.9720, loss_vd: 0.0299, acc_vd: 0.9387, f1_vd: 0.9387
+INFO - Epoch:  39, loss_tr: 0.0170, acc_tr: 0.9615, f1_tr: 0.9616, loss_vd: 0.0151, acc_vd: 0.9677, f1_vd: 0.9676
+INFO - Epoch:  40, loss_tr: 0.0137, acc_tr: 0.9695, f1_tr: 0.9695, loss_vd: 0.0137, acc_vd: 0.9732, f1_vd: 0.9731
+INFO - Epoch:  41, loss_tr: 0.0137, acc_tr: 0.9692, f1_tr: 0.9693, loss_vd: 0.0160, acc_vd: 0.9670, f1_vd: 0.9668
+INFO - Epoch:  42, loss_tr: 0.0144, acc_tr: 0.9705, f1_tr: 0.9705, loss_vd: 0.0187, acc_vd: 0.9615, f1_vd: 0.9615
+INFO - Epoch:  43, loss_tr: 0.0121, acc_tr: 0.9748, f1_tr: 0.9747, loss_vd: 0.0529, acc_vd: 0.9090, f1_vd: 0.9072
+INFO - Epoch:  44, loss_tr: 0.0133, acc_tr: 0.9730, f1_tr: 0.9730, loss_vd: 0.0136, acc_vd: 0.9748, f1_vd: 0.9746
+INFO - Epoch:  45, loss_tr: 0.0269, acc_tr: 0.9453, f1_tr: 0.9455, loss_vd: 0.0212, acc_vd: 0.9630, f1_vd: 0.9629
+INFO - Epoch:  46, loss_tr: 0.0172, acc_tr: 0.9730, f1_tr: 0.9730, loss_vd: 0.0167, acc_vd: 0.9720, f1_vd: 0.9718
+INFO - Epoch:  47, loss_tr: 0.0156, acc_tr: 0.9675, f1_tr: 0.9675, loss_vd: 0.0158, acc_vd: 0.9675, f1_vd: 0.9673
+INFO - Epoch:  48, loss_tr: 0.0154, acc_tr: 0.9677, f1_tr: 0.9678, loss_vd: 0.0155, acc_vd: 0.9653, f1_vd: 0.9652
+INFO - Epoch:  49, loss_tr: 0.0155, acc_tr: 0.9688, f1_tr: 0.9688, loss_vd: 0.0128, acc_vd: 0.9752, f1_vd: 0.9751
+INFO - Epoch:  50, loss_tr: 0.0140, acc_tr: 0.9720, f1_tr: 0.9720, loss_vd: 0.0157, acc_vd: 0.9722, f1_vd: 0.9720
+INFO - Epoch:  51, loss_tr: 0.0131, acc_tr: 0.9742, f1_tr: 0.9743, loss_vd: 0.0182, acc_vd: 0.9640, f1_vd: 0.9637
+INFO - Epoch:  52, loss_tr: 0.0141, acc_tr: 0.9690, f1_tr: 0.9690, loss_vd: 0.0135, acc_vd: 0.9715, f1_vd: 0.9713
+INFO - Epoch:  53, loss_tr: 0.0131, acc_tr: 0.9710, f1_tr: 0.9710, loss_vd: 0.0331, acc_vd: 0.9180, f1_vd: 0.9184
+INFO - Epoch:  54, loss_tr: 0.0138, acc_tr: 0.9683, f1_tr: 0.9683, loss_vd: 0.0148, acc_vd: 0.9740, f1_vd: 0.9739
+INFO - Epoch:  55, loss_tr: 0.0137, acc_tr: 0.9730, f1_tr: 0.9729, loss_vd: 0.0148, acc_vd: 0.9715, f1_vd: 0.9713
+INFO - Epoch:  56, loss_tr: 0.0113, acc_tr: 0.9788, f1_tr: 0.9787, loss_vd: 0.0137, acc_vd: 0.9740, f1_vd: 0.9738
+INFO - Epoch:  57, loss_tr: 0.0142, acc_tr: 0.9720, f1_tr: 0.9720, loss_vd: 0.0149, acc_vd: 0.9718, f1_vd: 0.9715
+INFO - Epoch:  58, loss_tr: 0.0113, acc_tr: 0.9772, f1_tr: 0.9772, loss_vd: 0.0132, acc_vd: 0.9762, f1_vd: 0.9761
+INFO - Epoch:  59, loss_tr: 0.0117, acc_tr: 0.9770, f1_tr: 0.9770, loss_vd: 0.0151, acc_vd: 0.9740, f1_vd: 0.9738
+INFO - Epoch:  60, loss_tr: 0.0120, acc_tr: 0.9760, f1_tr: 0.9760, loss_vd: 0.0131, acc_vd: 0.9768, f1_vd: 0.9767
+INFO - Evaluation, loss_te: 0.0131, acc_te: 0.9755, f1_te: 0.9754
+INFO -               precision    recall  f1-score   support
+
+           0       0.99      0.94      0.97      1000
+           1       0.99      0.99      0.99      1000
+           2       0.96      0.99      0.98      1000
+           3       0.96      0.99      0.97      1000
+
+   micro avg       0.98      0.98      0.98      4000
+   macro avg       0.98      0.98      0.98      4000
+weighted avg       0.98      0.98      0.98      4000
+
+INFO -               precision    recall  f1-score   support
+
+           0       0.99      0.93      0.96      1000
+           1       0.98      1.00      0.99      1000
+           2       0.96      0.99      0.98      1000
+           3       0.97      0.98      0.98      1000
+
+   micro avg       0.98      0.98      0.98      4000
+   macro avg       0.98      0.98      0.98      4000
+weighted avg       0.98      0.98      0.98      4000
+

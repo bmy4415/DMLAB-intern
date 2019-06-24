@@ -109,15 +109,15 @@ def predict_future_people(X):
 # load model
 
 adj_matrix = get_adj_matrix()
-window_size = 8
+window_size = 80
 input_dim = window_size * 8
-gcn_hiddens = [64, 64]
+gcn_hiddens = [128, 128]
 
 model = GCN(input_dim, adj_matrix, gcn_hiddens)
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 saver = tf.train.Saver()
-saver.restore(sess, 'model')
+saver.restore(sess, './gcn301/model')
 
 
 # In[ ]:
