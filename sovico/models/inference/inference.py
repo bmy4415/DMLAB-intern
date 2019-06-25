@@ -117,7 +117,7 @@ model = GCN(input_dim, adj_matrix, gcn_hiddens)
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 saver = tf.train.Saver()
-saver.restore(sess, './gcn301/model')
+saver.restore(sess, './gcn301_simulator/model')
 
 
 # In[ ]:
