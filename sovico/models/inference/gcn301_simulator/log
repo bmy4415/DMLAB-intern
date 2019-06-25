@@ -1,0 +1,54 @@
+INFO - start fit function
+INFO - Epoch:   1, loss_tr: 0.2507, acc_tr: 0.5902, f1_tr: 0.5893, loss_vd: 0.2148, acc_vd: 0.6985, f1_vd: 0.7018
+INFO - Epoch:   2, loss_tr: 0.1860, acc_tr: 0.7465, f1_tr: 0.7480, loss_vd: 0.1807, acc_vd: 0.7663, f1_vd: 0.7656
+INFO - Epoch:   3, loss_tr: 0.1568, acc_tr: 0.7982, f1_tr: 0.7975, loss_vd: 0.1613, acc_vd: 0.8005, f1_vd: 0.7986
+INFO - Epoch:   4, loss_tr: 0.1395, acc_tr: 0.8200, f1_tr: 0.8187, loss_vd: 0.1513, acc_vd: 0.8082, f1_vd: 0.8052
+INFO - Epoch:   5, loss_tr: 0.1271, acc_tr: 0.8328, f1_tr: 0.8312, loss_vd: 0.1442, acc_vd: 0.8197, f1_vd: 0.8167
+INFO - Epoch:   6, loss_tr: 0.1185, acc_tr: 0.8440, f1_tr: 0.8425, loss_vd: 0.1379, acc_vd: 0.8275, f1_vd: 0.8249
+INFO - Epoch:   7, loss_tr: 0.1109, acc_tr: 0.8540, f1_tr: 0.8527, loss_vd: 0.1312, acc_vd: 0.8343, f1_vd: 0.8324
+INFO - Epoch:   8, loss_tr: 0.1048, acc_tr: 0.8625, f1_tr: 0.8612, loss_vd: 0.1299, acc_vd: 0.8357, f1_vd: 0.8331
+INFO - Epoch:   9, loss_tr: 0.0993, acc_tr: 0.8718, f1_tr: 0.8705, loss_vd: 0.1248, acc_vd: 0.8402, f1_vd: 0.8381
+INFO - Epoch:  10, loss_tr: 0.0945, acc_tr: 0.8760, f1_tr: 0.8749, loss_vd: 0.1245, acc_vd: 0.8407, f1_vd: 0.8385
+INFO - Epoch:  11, loss_tr: 0.0902, acc_tr: 0.8833, f1_tr: 0.8823, loss_vd: 0.1232, acc_vd: 0.8453, f1_vd: 0.8430
+INFO - Epoch:  12, loss_tr: 0.0871, acc_tr: 0.8855, f1_tr: 0.8844, loss_vd: 0.1220, acc_vd: 0.8460, f1_vd: 0.8437
+INFO - Epoch:  13, loss_tr: 0.0833, acc_tr: 0.8928, f1_tr: 0.8919, loss_vd: 0.1234, acc_vd: 0.8467, f1_vd: 0.8441
+INFO - Epoch:  14, loss_tr: 0.0801, acc_tr: 0.8962, f1_tr: 0.8952, loss_vd: 0.1201, acc_vd: 0.8465, f1_vd: 0.8443
+INFO - Epoch:  15, loss_tr: 0.0769, acc_tr: 0.8997, f1_tr: 0.8988, loss_vd: 0.1167, acc_vd: 0.8507, f1_vd: 0.8487
+INFO - Epoch:  16, loss_tr: 0.0744, acc_tr: 0.9027, f1_tr: 0.9019, loss_vd: 0.1174, acc_vd: 0.8525, f1_vd: 0.8505
+INFO - Epoch:  17, loss_tr: 0.0722, acc_tr: 0.9062, f1_tr: 0.9053, loss_vd: 0.1176, acc_vd: 0.8532, f1_vd: 0.8511
+INFO - Epoch:  18, loss_tr: 0.0694, acc_tr: 0.9083, f1_tr: 0.9076, loss_vd: 0.1164, acc_vd: 0.8538, f1_vd: 0.8521
+INFO - Epoch:  19, loss_tr: 0.0673, acc_tr: 0.9115, f1_tr: 0.9108, loss_vd: 0.1144, acc_vd: 0.8573, f1_vd: 0.8554
+INFO - Epoch:  20, loss_tr: 0.0647, acc_tr: 0.9155, f1_tr: 0.9149, loss_vd: 0.1144, acc_vd: 0.8588, f1_vd: 0.8571
+INFO - Epoch:  21, loss_tr: 0.0631, acc_tr: 0.9213, f1_tr: 0.9207, loss_vd: 0.1160, acc_vd: 0.8572, f1_vd: 0.8552
+INFO - Epoch:  22, loss_tr: 0.0610, acc_tr: 0.9230, f1_tr: 0.9225, loss_vd: 0.1160, acc_vd: 0.8625, f1_vd: 0.8607
+INFO - Epoch:  23, loss_tr: 0.0592, acc_tr: 0.9257, f1_tr: 0.9253, loss_vd: 0.1163, acc_vd: 0.8587, f1_vd: 0.8574
+INFO - Epoch:  24, loss_tr: 0.0578, acc_tr: 0.9272, f1_tr: 0.9267, loss_vd: 0.1174, acc_vd: 0.8613, f1_vd: 0.8593
+INFO - Epoch:  25, loss_tr: 0.0562, acc_tr: 0.9303, f1_tr: 0.9300, loss_vd: 0.1161, acc_vd: 0.8622, f1_vd: 0.8606
+INFO - Epoch:  26, loss_tr: 0.0547, acc_tr: 0.9300, f1_tr: 0.9296, loss_vd: 0.1167, acc_vd: 0.8600, f1_vd: 0.8587
+INFO - Epoch:  27, loss_tr: 0.0530, acc_tr: 0.9345, f1_tr: 0.9342, loss_vd: 0.1168, acc_vd: 0.8600, f1_vd: 0.8583
+INFO - Epoch:  28, loss_tr: 0.0514, acc_tr: 0.9360, f1_tr: 0.9357, loss_vd: 0.1196, acc_vd: 0.8617, f1_vd: 0.8601
+INFO - Epoch:  29, loss_tr: 0.0505, acc_tr: 0.9357, f1_tr: 0.9353, loss_vd: 0.1181, acc_vd: 0.8597, f1_vd: 0.8583
+INFO - Epoch:  30, loss_tr: 0.0494, acc_tr: 0.9407, f1_tr: 0.9404, loss_vd: 0.1220, acc_vd: 0.8623, f1_vd: 0.8608
+INFO - Evaluation, loss_te: 0.1270, acc_te: 0.8642, f1_te: 0.8632
+INFO -               precision    recall  f1-score   support
+
+           0       0.93      0.72      0.82      1500
+           1       0.90      0.94      0.92      1500
+           2       0.84      0.85      0.85      1500
+           3       0.80      0.93      0.86      1500
+
+    accuracy                           0.86      6000
+   macro avg       0.87      0.86      0.86      6000
+weighted avg       0.87      0.86      0.86      6000
+
+INFO -               precision    recall  f1-score   support
+
+           0       0.93      0.75      0.83      1500
+           1       0.90      0.92      0.91      1500
+           2       0.82      0.86      0.84      1500
+           3       0.83      0.92      0.87      1500
+
+    accuracy                           0.86      6000
+   macro avg       0.87      0.86      0.86      6000
+weighted avg       0.87      0.86      0.86      6000
+
