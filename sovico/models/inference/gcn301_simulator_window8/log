@@ -1,0 +1,67 @@
+INFO - start fit function
+INFO - Epoch:   1, loss_tr: 0.3125, acc_tr: 0.4718, f1_tr: 0.4639, loss_vd: 0.3042, acc_vd: 0.5172, f1_vd: 0.5191
+INFO - Epoch:   2, loss_tr: 0.2816, acc_tr: 0.5463, f1_tr: 0.5479, loss_vd: 0.2842, acc_vd: 0.5472, f1_vd: 0.5511
+INFO - Epoch:   3, loss_tr: 0.2689, acc_tr: 0.5690, f1_tr: 0.5725, loss_vd: 0.2785, acc_vd: 0.5528, f1_vd: 0.5577
+INFO - Epoch:   4, loss_tr: 0.2635, acc_tr: 0.5762, f1_tr: 0.5806, loss_vd: 0.2754, acc_vd: 0.5618, f1_vd: 0.5665
+INFO - Epoch:   5, loss_tr: 0.2599, acc_tr: 0.5817, f1_tr: 0.5868, loss_vd: 0.2726, acc_vd: 0.5693, f1_vd: 0.5752
+INFO - Epoch:   6, loss_tr: 0.2569, acc_tr: 0.5890, f1_tr: 0.5949, loss_vd: 0.2728, acc_vd: 0.5692, f1_vd: 0.5746
+INFO - Epoch:   7, loss_tr: 0.2548, acc_tr: 0.5905, f1_tr: 0.5964, loss_vd: 0.2713, acc_vd: 0.5762, f1_vd: 0.5809
+INFO - Epoch:   8, loss_tr: 0.2529, acc_tr: 0.5978, f1_tr: 0.6042, loss_vd: 0.2697, acc_vd: 0.5765, f1_vd: 0.5825
+INFO - Epoch:   9, loss_tr: 0.2510, acc_tr: 0.5982, f1_tr: 0.6046, loss_vd: 0.2683, acc_vd: 0.5825, f1_vd: 0.5890
+INFO - Epoch:  10, loss_tr: 0.2495, acc_tr: 0.6018, f1_tr: 0.6083, loss_vd: 0.2674, acc_vd: 0.5815, f1_vd: 0.5880
+INFO - Epoch:  11, loss_tr: 0.2477, acc_tr: 0.6068, f1_tr: 0.6140, loss_vd: 0.2683, acc_vd: 0.5813, f1_vd: 0.5860
+INFO - Epoch:  12, loss_tr: 0.2467, acc_tr: 0.6073, f1_tr: 0.6144, loss_vd: 0.2660, acc_vd: 0.5843, f1_vd: 0.5911
+INFO - Epoch:  13, loss_tr: 0.2450, acc_tr: 0.6125, f1_tr: 0.6200, loss_vd: 0.2665, acc_vd: 0.5820, f1_vd: 0.5882
+INFO - Epoch:  14, loss_tr: 0.2440, acc_tr: 0.6153, f1_tr: 0.6233, loss_vd: 0.2662, acc_vd: 0.5857, f1_vd: 0.5919
+INFO - Epoch:  15, loss_tr: 0.2425, acc_tr: 0.6118, f1_tr: 0.6192, loss_vd: 0.2655, acc_vd: 0.5842, f1_vd: 0.5908
+INFO - Epoch:  16, loss_tr: 0.2416, acc_tr: 0.6165, f1_tr: 0.6244, loss_vd: 0.2642, acc_vd: 0.5875, f1_vd: 0.5948
+INFO - Epoch:  17, loss_tr: 0.2406, acc_tr: 0.6212, f1_tr: 0.6293, loss_vd: 0.2650, acc_vd: 0.5813, f1_vd: 0.5870
+INFO - Epoch:  18, loss_tr: 0.2393, acc_tr: 0.6208, f1_tr: 0.6289, loss_vd: 0.2645, acc_vd: 0.5890, f1_vd: 0.5960
+INFO - Epoch:  19, loss_tr: 0.2383, acc_tr: 0.6227, f1_tr: 0.6309, loss_vd: 0.2653, acc_vd: 0.5893, f1_vd: 0.5962
+INFO - Epoch:  20, loss_tr: 0.2377, acc_tr: 0.6252, f1_tr: 0.6338, loss_vd: 0.2635, acc_vd: 0.5882, f1_vd: 0.5952
+INFO - Epoch:  21, loss_tr: 0.2369, acc_tr: 0.6250, f1_tr: 0.6332, loss_vd: 0.2624, acc_vd: 0.5930, f1_vd: 0.6005
+INFO - Epoch:  22, loss_tr: 0.2357, acc_tr: 0.6287, f1_tr: 0.6370, loss_vd: 0.2635, acc_vd: 0.5920, f1_vd: 0.5993
+INFO - Epoch:  23, loss_tr: 0.2347, acc_tr: 0.6310, f1_tr: 0.6399, loss_vd: 0.2641, acc_vd: 0.5902, f1_vd: 0.5967
+INFO - Epoch:  24, loss_tr: 0.2339, acc_tr: 0.6315, f1_tr: 0.6403, loss_vd: 0.2640, acc_vd: 0.5933, f1_vd: 0.5998
+INFO - Epoch:  25, loss_tr: 0.2332, acc_tr: 0.6305, f1_tr: 0.6388, loss_vd: 0.2630, acc_vd: 0.5928, f1_vd: 0.6000
+INFO - Epoch:  26, loss_tr: 0.2327, acc_tr: 0.6347, f1_tr: 0.6434, loss_vd: 0.2629, acc_vd: 0.5953, f1_vd: 0.6022
+INFO - Epoch:  27, loss_tr: 0.2315, acc_tr: 0.6342, f1_tr: 0.6432, loss_vd: 0.2628, acc_vd: 0.5937, f1_vd: 0.6007
+INFO - Epoch:  28, loss_tr: 0.2310, acc_tr: 0.6332, f1_tr: 0.6418, loss_vd: 0.2633, acc_vd: 0.5958, f1_vd: 0.6032
+INFO - Epoch:  29, loss_tr: 0.2302, acc_tr: 0.6388, f1_tr: 0.6479, loss_vd: 0.2633, acc_vd: 0.5967, f1_vd: 0.6033
+INFO - Epoch:  30, loss_tr: 0.2296, acc_tr: 0.6362, f1_tr: 0.6451, loss_vd: 0.2633, acc_vd: 0.5915, f1_vd: 0.5985
+INFO - Epoch:  31, loss_tr: 0.2285, acc_tr: 0.6395, f1_tr: 0.6489, loss_vd: 0.2618, acc_vd: 0.5978, f1_vd: 0.6052
+INFO - Epoch:  32, loss_tr: 0.2282, acc_tr: 0.6417, f1_tr: 0.6512, loss_vd: 0.2616, acc_vd: 0.5985, f1_vd: 0.6059
+INFO - Epoch:  33, loss_tr: 0.2273, acc_tr: 0.6397, f1_tr: 0.6485, loss_vd: 0.2622, acc_vd: 0.5953, f1_vd: 0.6023
+INFO - Epoch:  34, loss_tr: 0.2266, acc_tr: 0.6418, f1_tr: 0.6513, loss_vd: 0.2637, acc_vd: 0.5973, f1_vd: 0.6047
+INFO - Epoch:  35, loss_tr: 0.2260, acc_tr: 0.6415, f1_tr: 0.6508, loss_vd: 0.2635, acc_vd: 0.5988, f1_vd: 0.6057
+INFO - Epoch:  36, loss_tr: 0.2251, acc_tr: 0.6425, f1_tr: 0.6519, loss_vd: 0.2653, acc_vd: 0.5948, f1_vd: 0.6003
+INFO - Epoch:  37, loss_tr: 0.2249, acc_tr: 0.6442, f1_tr: 0.6536, loss_vd: 0.2623, acc_vd: 0.5955, f1_vd: 0.6026
+INFO - Epoch:  38, loss_tr: 0.2240, acc_tr: 0.6445, f1_tr: 0.6541, loss_vd: 0.2625, acc_vd: 0.5993, f1_vd: 0.6062
+INFO - Epoch:  39, loss_tr: 0.2237, acc_tr: 0.6438, f1_tr: 0.6535, loss_vd: 0.2643, acc_vd: 0.5967, f1_vd: 0.6029
+INFO - Epoch:  40, loss_tr: 0.2227, acc_tr: 0.6430, f1_tr: 0.6521, loss_vd: 0.2632, acc_vd: 0.5975, f1_vd: 0.6047
+INFO - Epoch:  41, loss_tr: 0.2225, acc_tr: 0.6430, f1_tr: 0.6522, loss_vd: 0.2628, acc_vd: 0.5977, f1_vd: 0.6046
+INFO - Epoch:  42, loss_tr: 0.2217, acc_tr: 0.6438, f1_tr: 0.6532, loss_vd: 0.2626, acc_vd: 0.5982, f1_vd: 0.6057
+INFO - Epoch:  43, loss_tr: 0.2212, acc_tr: 0.6477, f1_tr: 0.6572, loss_vd: 0.2625, acc_vd: 0.5983, f1_vd: 0.6054
+INFO - Evaluation, loss_te: 0.2579, acc_te: 0.6035, f1_te: 0.6099
+INFO -               precision    recall  f1-score   support
+
+           0       0.44      0.71      0.54      1500
+           1       0.81      0.57      0.67      1500
+           2       0.69      0.51      0.59      1500
+           3       0.65      0.59      0.62      1500
+
+    accuracy                           0.60      6000
+   macro avg       0.65      0.60      0.61      6000
+weighted avg       0.65      0.60      0.61      6000
+
+INFO -               precision    recall  f1-score   support
+
+           0       0.44      0.74      0.55      1500
+           1       0.82      0.59      0.69      1500
+           2       0.70      0.49      0.58      1500
+           3       0.66      0.59      0.62      1500
+
+    accuracy                           0.60      6000
+   macro avg       0.65      0.60      0.61      6000
+weighted avg       0.65      0.60      0.61      6000
+
